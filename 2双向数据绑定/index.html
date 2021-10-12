@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-if的使用</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+       <h2 v-if = "age>25">Age:{{age}}</h2>
+       <h2 v-else>Name:{{name}}</h2>
+       <hr>
+       <h2 v-show = "name.indexOf('keep')>=0">Name:{{name}}</h2>
+       <h2 v-else>Sex:{{sex}}</h2>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el:"#app",
+            data:{
+               age:28,
+               name:'keepfool',
+               sex:'Male'
+            }
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试一试能不能自己实现效果</title>
+    <script src="../../vue.js"></script>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        body{
+            min-width: 500px;
+        }
+
+        /* 设置输入信息头 */
+        fieldset{
+            padding: 20px;
+        }
+
+        .info-box{
+         
+            margin: 5px 0;
+        }
+
+        .info-box label{
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+
+        /* 设置表格样式 */
+        
+        table{
+            border: 1px solid grey;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        td,tr,th{
+            line-height: 30px;
+            border: 1px solid grey;
+        }
+
+        table>thead{
+            background-color: #42b983;
+            color: #fff;
+        }
+
+        table td{
+            padding: 0 10px;
+        }
+
+        table td:last-of-type{
+            text-align: center;
+        }
+
+        table input{
+            background-color: #42b983;
+            color: white;
+            line-height: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+
+        <fieldset>
+            <legend>俺也可以</legend>
+
+            <div class="info-box">
+                <label>Name:</label>
+                <input type="text" v-model ='newPerson.name'>
+            </div>
+            <div  class="info-box">
+                <label>Age:</label>
+                <input type="text" v-model = "newPerson.age">
+            </div>
+            <div  class="info-box">
+                <label>Sex:</label>
+                <select name="sex" v-model = 'newPerson.sex'>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div  class="info-box">
+                <label></label>
+                <button @click = 'addInfo'>Create</button>
+            </div>
+        </fieldset>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(person,$index) in people" :key="$index">
+                    <td>{{person.name}}</td>
+                    <td>{{person.age}}</td>
+                    <td>{{person.sex}}</td>
+                    <td><input type="button" value="Delete" @click = 'deleteInfo($index)'></td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <script>
+
+        new Vue({
+            el:"#app",
+            data:{
+                newPerson:{
+                    name:'',
+                    age:0,
+                    sex:"Male"
+                },
+                people: [{
+                    name: 'Jack',
+                    age: 30,
+                    sex: 'Male'
+                }, {
+                    name: 'Bill',
+                    age: 26,
+                    sex: 'Male'
+                }, {
+                    name: 'Tracy',
+                    age: 22,
+                    sex: 'Female'
+                }, {
+                    name: 'Chris',
+                    age: 36,
+                    sex: 'Male'
+                }],
+                
+            },
+            methods: {
+                addInfo(){
+                    this.people.push(this.newPerson);
+                    //添加完必须重置newPerson对象，否则会导致无法解除绑定。
+                    this.newPerson = {
+                        name: '',
+                        age: 0,
+                        sex: 'Male'
+                    }
+                },
+                deleteInfo(index){
+                    this.people.splice(index, 1);
+                }
+            },
+        })
+
+    </script>
+
+</body>
+</html>
